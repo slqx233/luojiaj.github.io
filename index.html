@@ -256,6 +256,60 @@
             letter-spacing: 0.5px;
         }
 
+        /* ===== 访客统计横幅 ===== */
+        .visitor-banner {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4eaf7 100%);
+            border-radius: 12px;
+            padding: 18px 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 4px solid #1f6d8a;
+            box-shadow: 0 2px 8px rgba(31, 109, 138, 0.10);
+        }
+
+        .visitor-banner .greeting {
+            font-size: 16px;
+            color: #0b2a3b;
+            font-weight: 500;
+        }
+
+        .visitor-banner .greeting .name {
+            color: #1f6d8a;
+            font-weight: 600;
+        }
+
+        .visitor-banner .count-wrap {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .visitor-banner .count-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b2a3b;
+            letter-spacing: 2px;
+            font-variant-numeric: tabular-nums;
+            min-width: 180px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .visitor-banner .count-label {
+            font-size: 15px;
+            color: #3a6a7e;
+        }
+
+        .visitor-banner .sub-text {
+            font-size: 13px;
+            color: #5a7d8e;
+            margin-top: 2px;
+        }
+
         /* ===== 获奖经历 - 表格样式 ===== */
         .award-table {
             width: 100%;
@@ -521,6 +575,16 @@
                 margin-left: -16px;
                 margin-right: -16px;
             }
+            .visitor-banner {
+                padding: 14px 16px;
+            }
+            .visitor-banner .count-number {
+                font-size: 22px;
+                min-width: 120px;
+            }
+            .visitor-banner .greeting {
+                font-size: 14px;
+            }
         }
 
         @media print {
@@ -535,6 +599,8 @@
             .edu-detail .highlight:hover { transform: none; }
             .nav-menu a:hover { background: none; transform: none; border-left-color: transparent; }
             .main-content section.highlight-flash { background: none !important; box-shadow: none !important; }
+            .visitor-banner { background: #f0f7fc !important; border: 1px solid #ccc; }
+            .visitor-banner .count-number { background: #f0f7fc !important; }
         }
     </style>
 </head>
@@ -613,6 +679,19 @@
 
     <!-- ===== 右侧主内容 ===== -->
     <main class="main-content">
+
+        <!-- ===== 访客统计横幅 ===== -->
+        <div class="visitor-banner" id="visitorBanner">
+            <div class="greeting">
+                👋 欢迎来到 <span class="name">罗佳杰</span> 的个人简历，很荣幸与您相遇 ✨
+            </div>
+            <div class="count-wrap">
+                <span class="count-label">您是第</span>
+                <span class="count-number" id="visitorCount">000000</span>
+                <span class="count-label">位来访者</span>
+            </div>
+            <div class="sub-text">— 感谢您的驻足，祝您今天心情愉快 ☀️ —</div>
+        </div>
 
         <!-- 获奖经历 -->
         <section id="section-awards" data-section="awards">
@@ -863,7 +942,7 @@
             }
         });
 
-        // ===== 导航目录：点击跳转 + 高亮 =====
+        // ===== 导航目录：点击跳转 + 高亮（修复版） =====
         const navLinks = document.querySelectorAll('.nav-menu a');
         const sections = {
             awards: document.getElementById('section-awards'),
@@ -871,28 +950,21 @@
             experience: document.getElementById('section-experience')
         };
 
-        // 高亮函数
         function highlightSection(sectionElement) {
             if (!sectionElement) return;
 
-            // 移除所有已存在的高亮
             document.querySelectorAll('.main-content section.highlight-flash').forEach(el => {
                 el.classList.remove('highlight-flash');
             });
 
-            // 强制回流以重新触发动画
             void sectionElement.offsetWidth;
-
-            // 添加高亮
             sectionElement.classList.add('highlight-flash');
 
-            // 1秒后移除高亮
             setTimeout(function() {
                 sectionElement.classList.remove('highlight-flash');
             }, 1000);
         }
 
-        // 点击导航链接
         navLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -901,34 +973,22 @@
                 const targetSection = sections[targetId];
 
                 if (targetSection) {
-                    // 滚动到目标位置（平滑滚动）
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // 先清除所有高亮
+                    document.querySelectorAll('.main-content section.highlight-flash').forEach(el => {
+                        el.classList.remove('highlight-flash');
                     });
 
-                    // 高亮目标模块
-                    highlightSection(targetSection);
-                }
-            });
-        });
+                    void targetSection.offsetWidth;
+                    targetSection.classList.add('highlight-flash');
 
-        // ===== 页面加载时检测URL锚点（如果有 #section-xxx） =====
-        window.addEventListener('load', function() {
-            const hash = window.location.hash;
-            if (hash) {
-                const targetEl = document.querySelector(hash);
-                if (targetEl && targetEl.dataset.section) {
-                    // 延迟一点等待页面完全加载
+                    // 延迟一点再滚动，让高亮先显示
                     setTimeout(function() {
-                        highlightSection(targetEl);
-                    }, 300);
-                }
-            }
-        });
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 50);
 
-    })();
-</script>
-
-</body>
-</html>
+                    // 1.1秒后移除高亮
+                    setTimeout(function() {
+                        targetSection.classList.remove
