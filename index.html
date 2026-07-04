@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>罗佳杰 · 个人简历</title>
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #eef2f5;
+            color: #1e2b37;
+            line-height: 1.6;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* ===== 左侧栏 ===== */
+        .sidebar {
+            background: #0b2a3b;
+            color: #e7edf3;
+            padding: 40px 28px;
+            width: 32%;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .avatar img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #5b8da0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: block;
+            margin: 0 auto 16px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .avatar img:hover {
+            transform: scale(1.15);
+        }
+
+        .sidebar h1 {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar .subhead {
+            text-align: center;
+            font-size: 15px;
+            color: #aac3d1;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #2f5a6b;
+            padding-bottom: 18px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #d4e2ed;
+            border-bottom: 2px solid #3e7a91;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #d0dfe9;
+        }
+
+        .contact-item i {
+            font-style: normal;
+            width: 22px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        /* ===== 导航目录样式 ===== */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-menu a {
+            color: #b0ccdb;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: background 0.25s, color 0.25s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border-left-color: #5b8da0;
+            transform: translateX(4px);
+        }
+
+        .nav-menu a .nav-icon {
+            font-size: 18px;
+        }
+
+        .nav-menu a .nav-label {
+            font-weight: 400;
+        }
+
+        .edu-detail {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .edu-detail strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .edu-detail .meta {
+            color: #b0ccdb;
+            font-size: 14px;
+        }
+
+        .edu-detail .highlight {
+            background: #1e4a5e;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+            margin: 3px 4px 3px 0;
+            color: #e3f0f7;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            user-select: none;
+        }
+
+        .edu-detail .highlight:hover {
+            background: #2a6a82;
+            transform: scale(1.05);
+        }
+
+        .edu-detail .highlight:active {
+            transform: scale(0.95);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .skill-tags span {
+            background: #1f4a5e;
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #e3f0f7;
+            border: 1px solid #3a738a;
+        }
+
+        .skill-tags .break-line {
+            flex-basis: 100%;
+            width: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+        }
+
+        /* ===== 主修课程 - 强制断行 ===== */
+        .course-line {
+            display: block;
+            font-size: 14px;
+            color: #cbdde8;
+            line-height: 1.8;
+        }
+
+        /* ===== 右侧主内容 ===== */
+        .main-content {
+            padding: 40px 38px;
+            width: 68%;
+            background: #ffffff;
+        }
+
+        .main-content section {
+            margin-bottom: 34px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            padding: 16px 20px;
+            margin-left: -20px;
+            margin-right: -20px;
+            border-radius: 12px;
+        }
+
+        /* 高亮动画 */
+        .main-content section.highlight-flash {
+            background: #e8f4fd !important;
+            box-shadow: 0 0 0 3px #1f6d8a;
+        }
+
+        .main-content section.highlight-flash-out {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0b2a3b;
+            border-bottom: 3px solid #1f6d8a;
+            padding-bottom: 8px;
+            margin-bottom: 22px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 获奖经历 - 表格样式 ===== */
+        .award-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .award-table tr {
+            border-bottom: 1px dashed #e0e8ee;
+        }
+
+        .award-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .award-table td {
+            padding: 8px 0;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .award-table .award-name {
+            color: #0b2a3b;
+            font-weight: 500;
+            width: 60%;
+        }
+
+        .award-table .award-level {
+            color: #1f6d8a;
+            font-weight: 500;
+            text-align: right;
+            width: 20%;
+            padding-right: 16px;
+        }
+
+        .award-table .award-level.hidden-level {
+            visibility: hidden;
+        }
+
+        .award-table .award-date {
+            color: #5a7d8e;
+            font-size: 14px;
+            text-align: right;
+            width: 20%;
+            white-space: nowrap;
+        }
+
+        /* ===== 项目经历 ===== */
+        .project-item {
+            margin-bottom: 28px;
+        }
+
+        .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 18px;
+            margin-bottom: 2px;
+        }
+
+        .project-header h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #0f3343;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .project-header .role {
+            font-size: 14px;
+            background: #e1ecf3;
+            padding: 0 14px;
+            border-radius: 30px;
+            color: #1f5b72;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .project-header .date {
+            font-size: 14px;
+            color: #4e6f7e;
+            white-space: nowrap;
+        }
+
+        .project-desc {
+            font-size: 15px;
+            color: #2a414f;
+            padding-left: 4px;
+        }
+
+        .project-desc ul {
+            padding-left: 22px;
+            list-style-type: disc;
+            margin-top: 3px;
+        }
+
+        .project-desc ul li {
+            margin-bottom: 3px;
+        }
+
+        /* ===== 实践工作 ===== */
+        .exp-item {
+            margin-bottom: 22px;
+        }
+
+        .exp-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 18px;
+            margin-bottom: 2px;
+        }
+
+        .exp-header h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #0f3343;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .exp-header .date {
+            font-size: 14px;
+            color: #4e6f7e;
+            white-space: nowrap;
+            background: #e9f0f5;
+            padding: 0 16px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        .exp-desc {
+            padding-left: 4px;
+            font-size: 15px;
+            color: #2a414f;
+        }
+
+        .exp-desc ul {
+            padding-left: 22px;
+            list-style-type: disc;
+            margin-top: 3px;
+        }
+
+        .exp-desc ul li {
+            margin-bottom: 3px;
+        }
+
+        .exp-desc strong {
+            color: #0b2a3b;
+        }
+
+        /* ===== 图片弹窗（Modal）样式 ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: zoomIn 0.3s ease;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0b2a3b;
+            margin-bottom: 12px;
+        }
+
+        .modal-close {
+            margin-top: 16px;
+            padding: 8px 32px;
+            background: #0b2a3b;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #1f5b72;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 850px) {
+            .container {
+                flex-direction: column;
+                border-radius: 16px;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 30px 24px;
+            }
+            .main-content {
+                width: 100%;
+                padding: 30px 24px;
+            }
+            .project-header, .exp-header {
+                flex-wrap: wrap;
+            }
+            .award-table td {
+                padding: 6px 0;
+                font-size: 14px;
+            }
+            .award-table .award-name {
+                width: 50%;
+            }
+            .award-table .award-level {
+                width: 25%;
+                padding-right: 10px;
+            }
+            .award-table .award-date {
+                width: 25%;
+            }
+            .main-content section {
+                padding: 12px 16px;
+                margin-left: -16px;
+                margin-right: -16px;
+            }
+        }
+
+        @media print {
+            body { background: white; padding: 0.2in; }
+            .container { box-shadow: none; border: 1px solid #ccc; }
+            .sidebar { background: #0b2a3b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .skill-tags span { background: #1f4a5e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .highlight { background: #1e4a5e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .role { background: #e1ecf3 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .exp-header .date { background: #e9f0f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .avatar img:hover { transform: none; }
+            .edu-detail .highlight:hover { transform: none; }
+            .nav-menu a:hover { background: none; transform: none; border-left-color: transparent; }
+            .main-content section.highlight-flash { background: none !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== 左侧栏 ===== -->
+    <aside class="sidebar">
+        <div class="avatar">
+            <img src="img1.jpg" alt="罗佳杰" id="avatarImg">
+            <h1>罗佳杰</h1>
+            <div class="subhead">电磁场与无线技术 · 2026届</div>
+        </div>
+
+        <!-- ===== 导航目录 ===== -->
+        <div class="sidebar-section">
+            <h3>📋 目录导航</h3>
+            <div class="nav-menu">
+                <a href="#section-awards" data-target="awards">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-label">获奖经历</span>
+                </a>
+                <a href="#section-projects" data-target="projects">
+                    <span class="nav-icon">📡</span>
+                    <span class="nav-label">项目经历</span>
+                </a>
+                <a href="#section-experience" data-target="experience">
+                    <span class="nav-icon">🧑‍💻</span>
+                    <span class="nav-label">实践工作</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>📬 联系方式</h3>
+            <div class="contact-item"><i>📞</i> 13540438860</div>
+            <div class="contact-item"><i>✉️</i> luojiaj13799@163.com</div>
+            <div class="contact-item"><i>📍</i> 哈尔滨工业大学</div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>🎓 教育背景</h3>
+            <div class="edu-detail">
+                <strong>哈尔滨工业大学</strong><br>
+                电磁场与无线技术 · 2022.09 – 2026.06<br>
+                <span class="meta">专业排名：8/70（11.43%）</span><br>
+                <span class="meta">综合学分绩：85.71/100</span><br>
+                <span class="highlight" id="cet6Click">CET-6 569</span>
+                <span class="highlight" id="cet4Click">CET-4 600</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>🧰 专业技能</h3>
+            <div class="skill-tags">
+                <span>MATLAB</span>
+                <span>HFSS</span>
+                <span>LaTeX</span>
+                <span class="break-line"></span>
+                <span>AutoCAD</span>
+                <span>SolidWorks</span>
+                <span>Office</span>
+                <span class="break-line"></span>
+                <span>计算机四级（网络工程师）</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>📘 主修课程</h3>
+            <span class="course-line">天线原理(99) · 微波电子线路(96) · 代数与几何(95)</span>
+            <span class="course-line">通信电子线路(94) · 概率论与数理统计(94)</span>
+            <span class="course-line">微积分(92) · 大学化学(91) · 微波无源电路(91)</span>
+            <span class="course-line">电波传播(91) · 自动控制原理(90) · 电磁兼容(90)</span>
+        </div>
+    </aside>
+
+    <!-- ===== 右侧主内容 ===== -->
+    <main class="main-content">
+
+        <!-- 获奖经历 -->
+        <section id="section-awards" data-section="awards">
+            <h2 class="section-title">🏆 获奖经历</h2>
+            <table class="award-table">
+                <tr>
+                    <td class="award-name">国家奖学金</td>
+                    <td class="award-level">国家级荣誉</td>
+                    <td class="award-date">2025.12</td>
+                </tr>
+                <tr>
+                    <td class="award-name">全国大学生英语竞赛</td>
+                    <td class="award-level">国家级三等奖</td>
+                    <td class="award-date">2024.05</td>
+                </tr>
+                <tr>
+                    <td class="award-name">全国大学生数学竞赛</td>
+                    <td class="award-level">省级三等奖</td>
+                    <td class="award-date">2024.12</td>
+                </tr>
+                <tr>
+                    <td class="award-name">山东省大学生光电设计科技创新大赛</td>
+                    <td class="award-level">省级二等奖</td>
+                    <td class="award-date">2024.11</td>
+                </tr>
+                <tr>
+                    <td class="award-name">山东省大学生物理创新竞赛</td>
+                    <td class="award-level">省级三等奖</td>
+                    <td class="award-date">2023.12</td>
+                </tr>
+                <tr>
+                    <td class="award-name">哈尔滨工业大学优秀毕业生</td>
+                    <td class="award-level">荣誉称号</td>
+                    <td class="award-date">2026.05</td>
+                </tr>
+                <tr>
+                    <td class="award-name">哈尔滨工业大学五四表彰优秀团员</td>
+                    <td class="award-level">荣誉称号</td>
+                    <td class="award-date">2024.05</td>
+                </tr>
+                <tr>
+                    <td class="award-name">哈尔滨工业大学五四表彰优秀团干部</td>
+                    <td class="award-level">荣誉称号</td>
+                    <td class="award-date">2023.05</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 项目经历 -->
+        <section id="section-projects" data-section="projects">
+            <h2 class="section-title">📡 项目经历</h2>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>基于FDM的二维静态边值问题分析</h4>
+                    <span class="role">负责人</span>
+                    <span class="date">2025.07</span>
+                </div>
+                <div class="project-desc">
+                    <ul>
+                        <li>开发数值仿真程序，结合分离变量法与有限差分法（FDM）求解二维静态电磁边值问题，分析电位分布特性。</li>
+                        <li>采用FDM实现数值求解，优化迭代算法，在细网格（0.1m）条件下将RMSE误差降至0.655V。</li>
+                        <li>通过分析松弛因子对收敛速度的影响，确定最优松弛因子（粗网格1.55/细网格1.95），使迭代次数减少40%以上，最终数值解与解析解的误差控制在1%以内。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>基于鉴频鉴相器的锁相环系统设计</h4>
+                    <span class="role">负责人</span>
+                    <span class="date">2025.05</span>
+                </div>
+                <div class="project-desc">
+                    <ul>
+                        <li>基于锁相环（PLL）技术设计并仿真2.688GHz射频信号源，采用二阶巴特沃斯滤波器抑制高频噪声。</li>
+                        <li>优化VCO调谐灵敏度（70MHz/V）解决频率偏差问题，最终输出信号频谱峰值锁定在目标频率（误差&lt;1%），动态调整范围达50MHz。</li>
+                        <li>掌握射频系统设计全流程，提升MATLAB/Simulink仿真与高频电路分析能力。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>微波微带贴片天线设计与仿真</h4>
+                    <span class="role">负责人</span>
+                    <span class="date">2024.07</span>
+                </div>
+                <div class="project-desc">
+                    <ul>
+                        <li>设计并优化中心频率为8.8GHz的微带贴片天线及其天线阵列，使用HFSS和MATLAB进行建模与仿真。</li>
+                        <li>通过调整贴片尺寸（L=10.5mm，W=10.0mm）和馈电位置，优化天线的谐振频率与回波损耗，最终实现增益5.75dB。</li>
+                        <li>绘制并分析天线的电磁场分布、史密斯圆图及三维辐射方向图，验证微带贴片天线在无线通信中的高效性能。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>基于谐波分析的时间调制阵列测向仿真</h4>
+                    <span class="role">核心成员</span>
+                    <span class="date">2023.10 – 2024.11</span>
+                </div>
+                <div class="project-desc">
+                    <ul>
+                        <li>利用MATLAB设计并仿真线阵、矩形阵和圆阵三种时间调制阵列（TMA）。</li>
+                        <li>对比分析MUSIC、单谐波（SHA）和多谐波（MHA）算法的测向性能，探究阵列形状与测向精度的关联性。</li>
+                        <li>综合分析算法性能、阵列影响、信噪比影响，为实际工程中算法与阵列选择提供依据。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>多功能有机发光材料光物理性质研究</h4>
+                    <span class="role">负责人</span>
+                    <span class="date">2022.10 – 2023.11</span>
+                </div>
+                <div class="project-desc">
+                    <ul>
+                        <li>采用量子力学/分子力学方法构建分子团簇模型，基于泛函理论优化目标分子在固/液态下的基/激发态几何构型。</li>
+                        <li>通过PBE0泛函筛选（与实验数据误差&lt;3%）精确模拟晶体环境对分子发光机制的影响。</li>
+                        <li>揭示发光材料具有聚集诱导发光特性（固态较液态提升27倍），单-三重态能差ΔE<sub>ST</sub>=0.39eV，证实可实现高效延迟荧光；空穴重组能较低，展现优异电荷传输性能（大创赛校级三等奖）。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实践工作 -->
+        <section id="section-experience" data-section="experience">
+            <h2 class="section-title">🧑‍💻 实践工作</h2>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h4>紫丁香书院科创部部长</h4>
+                    <span class="date">2023.09 – 2024.09</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>收集赛事信息资讯，对接实验室宣传工作，编纂《科创指南》。</li>
+                        <li>对接46个实验室，收纳15个赛事信息，采访15位优秀科创榜样。</li>
+                        <li><strong>《科创指南》工作站已有1W+点击量。</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h4>履行支教实践团</h4>
+                    <span class="date">2023.07</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>参与福建省大学生实习"扬帆计划"，前往漳州市进行支教，累计8课时，志愿时长80学时。</li>
+                        <li>实践成果获得2023年暑假社会实践评比校级团队三等奖。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h4>材料科学与工程学院实践部干事</h4>
+                    <span class="date">2023.03 – 2023.12</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>参与组织社会实践活动，面试行走中华实践队队员。</li>
+                        <li>参与知行校友采访、植树节植树、清理社区垃圾及宣传贴等活动。</li>
+                        <li>参与支教前期准备工作，全程保障支教工作顺利开展，开展院系社会实践评比。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h4>天文爱好者协会宣传部部长</h4>
+                    <span class="date">2022.09 – 2023.07</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>负责策划社团活动开展，设计社团宣传海报、易拉宝，编纂宣传文案。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h4>学习委员</h4>
+                    <span class="date">2022.09 – 2023.07</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>收集并转发学习信息及赛事信息，进行学业帮扶。</li>
+                        <li>连接学生与老师，与老师沟通学生需求及问题。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- ===== 图片弹窗 ===== -->
+<div class="modal-overlay" id="imageModal">
+    <div class="modal-content">
+        <div class="modal-title" id="modalTitle">CET 成绩单</div>
+        <img src="" alt="CET成绩单" id="modalImg">
+        <br>
+        <button class="modal-close" id="closeModal">关 闭</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ===== CET 点击弹窗 =====
+        const cet6Element = document.getElementById('cet6Click');
+        const cet4Element = document.getElementById('cet4Click');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeBtn = document.getElementById('closeModal');
+
+        cet6Element.addEventListener('click', function() {
+            modalTitle.textContent = '📄 CET-6 成绩单 (569分)';
+            modalImg.src = 'CET6.jpg';
+            modal.classList.add('active');
+        });
+
+        cet4Element.addEventListener('click', function() {
+            modalTitle.textContent = '📄 CET-4 成绩单 (600分)';
+            modalImg.src = 'CET4.jpg';
+            modal.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // ===== 导航目录：点击跳转 + 高亮 =====
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        const sections = {
+            awards: document.getElementById('section-awards'),
+            projects: document.getElementById('section-projects'),
+            experience: document.getElementById('section-experience')
+        };
+
+        // 高亮函数
+        function highlightSection(sectionElement) {
+            if (!sectionElement) return;
+
+            // 移除所有已存在的高亮
+            document.querySelectorAll('.main-content section.highlight-flash').forEach(el => {
+                el.classList.remove('highlight-flash');
+            });
+
+            // 强制回流以重新触发动画
+            void sectionElement.offsetWidth;
+
+            // 添加高亮
+            sectionElement.classList.add('highlight-flash');
+
+            // 1秒后移除高亮
+            setTimeout(function() {
+                sectionElement.classList.remove('highlight-flash');
+            }, 1000);
+        }
+
+        // 点击导航链接
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = link.getAttribute('data-target');
+                const targetSection = sections[targetId];
+
+                if (targetSection) {
+                    // 滚动到目标位置（平滑滚动）
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // 高亮目标模块
+                    highlightSection(targetSection);
+                }
+            });
+        });
+
+        // ===== 页面加载时检测URL锚点（如果有 #section-xxx） =====
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetEl = document.querySelector(hash);
+                if (targetEl && targetEl.dataset.section) {
+                    // 延迟一点等待页面完全加载
+                    setTimeout(function() {
+                        highlightSection(targetEl);
+                    }, 300);
+                }
+            }
+        });
+
+    })();
+</script>
+
+</body>
+</html>
