@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>罗佳杰 · 个人简历</title>
     <style>
+        @import url("style.css") layer(base);
         /* ===== 全局重置 & 字体 ===== */
         * {
             margin: 0;
@@ -20,6 +21,7 @@
             padding: 30px 20px;
             display: flex;
             justify-content: center;
+            align-items: stretch;
         }
 
         .container {
@@ -86,6 +88,7 @@
         }
 
         .sidebar-section h3 {
+            display: block;
             font-size: 18px;
             font-weight: 500;
             color: #d4e2ed;
@@ -191,13 +194,29 @@
             margin-top: 6px;
         }
 
-        .skill-tags span {
+        .skill-tags span, .skill-tags button {
             background: #1f4a5e;
             padding: 5px 16px;
             border-radius: 30px;
             font-size: 13px;
             color: #e3f0f7;
             border: 1px solid #3a738a;
+        }
+
+        .skill-tags button {
+            font-family: inherit;
+            line-height: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .skill-tags button:hover {
+            background: #2a6a82;
+            transform: scale(1.05);
+        }
+
+        .skill-tags button:active {
+            transform: scale(0.95);
         }
 
         .skill-tags .break-line {
@@ -259,14 +278,39 @@
         /* ===== 获奖经历 - 表格样式 ===== */
         .award-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
-        .award-table tr {
+        .award-table td {
             border-bottom: 1px dashed #e0e8ee;
         }
 
-        .award-table tr:last-child {
+        .award-table tr.linked-award {
+            cursor: pointer;
+        }
+
+        .award-table tr.linked-award td {
+            background: #e7f3f9;
+            border-bottom-color: transparent;
+            transition: background 0.2s;
+        }
+
+        .award-table tr.linked-award:hover td, .award-table tr.linked-award:focus-within td {
+            background: #cde8f4;
+        }
+
+        .award-table tr.linked-award td:first-child {
+            border-radius: 8px 0 0 8px;
+            padding-left: 8px;
+        }
+
+        .award-table tr.linked-award td:last-child {
+            border-radius: 0 8px 8px 0;
+            padding-right: 8px;
+        }
+
+        .award-table tr:last-child td {
             border-bottom: none;
         }
 
@@ -280,6 +324,31 @@
             color: #0b2a3b;
             font-weight: 500;
             width: 60%;
+        }
+
+        .award-table .award-name a, .exp-header h4 a {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: #e7f3f9;
+            color: #0b5a78;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .award-table tr.linked-award .award-name a {
+            padding: 0;
+            background: transparent;
+        }
+
+        .award-table .award-name a:hover, .exp-header h4 a:hover {
+            background: #cde8f4;
+            transform: translateY(-2px);
+        }
+
+        .award-table .award-name a:focus-visible, .exp-header h4 a:focus-visible {
+            outline: 2px solid #1f6d8a;
+            outline-offset: 2px;
         }
 
         .award-table .award-level {
@@ -445,11 +514,38 @@
             position: relative;
         }
 
+        .modal-content.wide {
+            max-width: 900px;
+        }
+
         .modal-content img {
             width: 100%;
             max-height: 70vh;
             object-fit: contain;
             border-radius: 10px;
+        }
+
+        .modal-images {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-images img {
+            flex-shrink: 0;
+        }
+
+        .modal-images.horizontal {
+            flex-direction: row;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .modal-images.horizontal img {
+            width: calc((100% - 12px) / 2);
+            min-width: 280px;
         }
 
         .modal-title {
@@ -533,6 +629,7 @@
             .exp-header .date { background: #e9f0f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .avatar img:hover { transform: none; }
             .edu-detail .highlight:hover { transform: none; }
+            .skill-tags button:hover { transform: none; }
             .nav-menu a:hover { background: none; transform: none; border-left-color: transparent; }
             .main-content section.highlight-flash { background: none !important; box-shadow: none !important; }
         }
@@ -546,7 +643,12 @@
         <div class="avatar">
             <img src="role\img1.jpg" alt="罗佳杰" id="avatarImg">
             <h1>罗佳杰</h1>
-            <div class="subhead">电磁场与无线技术 · 2026届</div>
+<div class="subhead">
+  <span style="display: inline-flex; align-items: center; justify-content: center;">
+    <span class="party-emblem" role="img" aria-label="党徽"></span>中共党员
+  </span>
+</div>
+            <div class="subhead">电子信息 · 2029届</div>
         </div>
 
         <!-- ===== 导航目录 ===== -->
@@ -582,8 +684,9 @@
 		电子信息 · 2026.09 – 至今<br>
 		<strong>哈尔滨工业大学——本科阶段</strong><br>
 		电磁场与无线技术 · 2022.09 – 2026.06<br>
-                <span class="meta">专业排名：8/70（11.43%）</span><br>
-                <span class="meta">综合学分绩：85.71/100</span><br>
+                <span class="highlight" id="degreeClick">学位证</span>
+                <span class="highlight" id="graduationClick">毕业证</span><br>
+                <span class="meta">专业排名：8/70(11.43%)  &nbsp;  学分绩：85.70/100</span><br>
                 <span class="highlight" id="cet6Click">CET-6 569</span>
                 <span class="highlight" id="cet4Click">CET-4 600</span>
 		
@@ -601,7 +704,7 @@
                 <span>SolidWorks</span>
                 <span>Office</span>
                 <span class="break-line"></span>
-                <span>计算机四级（网络工程师）</span>
+                <button type="button" id="ncreClick">计算机四级（网络工程师）</button>
             </div>
         </div>
 
@@ -622,7 +725,7 @@
             <h2 class="section-title">🏆 获奖经历</h2>
             <table class="award-table">
                 <tr>
-                    <td class="award-name">国家奖学金</td>
+                    <td class="award-name"><a href="awards/NA.png">国家奖学金</a></td>
                     <td class="award-level">国家级荣誉</td>
                     <td class="award-date">2025.12</td>
                 </tr>
@@ -632,22 +735,22 @@
                     <td class="award-date">2026.08</td>
                 </tr>
                 <tr>
-                    <td class="award-name">全国大学生英语竞赛</td>
+                    <td class="award-name"><a href="awards/NE.jpg">全国大学生英语竞赛</a></td>
                     <td class="award-level">国家级三等奖</td>
                     <td class="award-date">2024.05</td>
                 </tr>
                 <tr>
-                    <td class="award-name">全国大学生数学竞赛</td>
+                    <td class="award-name"><a href="awards/SXJS.jpg">全国大学生数学竞赛</a></td>
                     <td class="award-level">省级三等奖</td>
                     <td class="award-date">2024.12</td>
                 </tr>
                 <tr>
-                    <td class="award-name">山东省大学生光电设计科技创新大赛</td>
+                    <td class="award-name"><a href="awards/GDSJ.jpg">山东省大学生光电设计科技创新大赛</a></td>
                     <td class="award-level">省级二等奖</td>
                     <td class="award-date">2024.11</td>
                 </tr>
                 <tr>
-                    <td class="award-name">山东省大学生物理创新竞赛</td>
+                    <td class="award-name"><a href="awards/WLJS.jpg">山东省大学生物理创新竞赛</a></td>
                     <td class="award-level">省级三等奖</td>
                     <td class="award-date">2023.12</td>
                 </tr>
@@ -657,17 +760,17 @@
                     <td class="award-date">2026.11</td>
                 </tr>
                 <tr>
-                    <td class="award-name">哈尔滨工业大学优秀毕业生</td>
+                    <td class="award-name"><a href="awards/EG.jpg">哈尔滨工业大学优秀毕业生</a></td>
                     <td class="award-level">荣誉称号</td>
                     <td class="award-date">2026.05</td>
                 </tr>
                 <tr>
-                    <td class="award-name">哈尔滨工业大学五四表彰优秀团员</td>
+                    <td class="award-name"><a href="awards/YXTY.jpg">哈尔滨工业大学五四表彰优秀团员</a></td>
                     <td class="award-level">荣誉称号</td>
                     <td class="award-date">2024.05</td>
                 </tr>
                 <tr>
-                    <td class="award-name">哈尔滨工业大学五四表彰优秀团干部</td>
+                    <td class="award-name"><a href="awards/YXTG.jpg">哈尔滨工业大学五四表彰优秀团干部</a></td>
                     <td class="award-level">荣誉称号</td>
                     <td class="award-date">2023.05</td>
                 </tr>
@@ -775,7 +878,7 @@
 
             <div class="exp-item">
                 <div class="exp-header">
-                    <h4>紫丁香书院科创部部长</h4>
+                    <h4><a href="practice/KCB.jpg">紫丁香书院科创部部长</a></h4>
                     <span class="date">2023.09 – 2024.09</span>
                 </div>
                 <div class="exp-desc">
@@ -847,7 +950,7 @@
 <div class="modal-overlay" id="imageModal">
     <div class="modal-content">
         <div class="modal-title" id="modalTitle">CET 成绩单</div>
-        <img src="" alt="CET成绩单" id="modalImg">
+        <div class="modal-images" id="modalImages"></div>
         <br>
         <button class="modal-close" id="closeModal">关 闭</button>
     </div>
@@ -855,24 +958,70 @@
 
 <script>
     (function() {
-        // ===== CET 点击弹窗 =====
         const cet6Element = document.getElementById('cet6Click');
         const cet4Element = document.getElementById('cet4Click');
+        const degreeElement = document.getElementById('degreeClick');
+        const graduationElement = document.getElementById('graduationClick');
+        const ncreElement = document.getElementById('ncreClick');
         const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
+        const modalContent = modal.querySelector('.modal-content');
+        const modalImages = document.getElementById('modalImages');
         const modalTitle = document.getElementById('modalTitle');
         const closeBtn = document.getElementById('closeModal');
 
-        cet6Element.addEventListener('click', function() {
-            modalTitle.textContent = '📄 CET-6 成绩单 (569分)';
-            modalImg.src = 'CET6.jpg';
+        function showImages(title, images, horizontal = false) {
+            modalTitle.textContent = title;
+            modalContent.classList.toggle('wide', horizontal);
+            modalImages.classList.toggle('horizontal', horizontal);
+            modalImages.replaceChildren(...images.map(function(image) {
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.alt = image.alt;
+                return img;
+            }));
+            modalImages.scrollTop = 0;
+            modalImages.scrollLeft = 0;
             modal.classList.add('active');
+        }
+
+        cet6Element.addEventListener('click', function() {
+            showImages('📄 CET-6 成绩单 (569分)', [{ src: 'grade/CET6.jpg', alt: 'CET-6 成绩单' }]);
         });
 
         cet4Element.addEventListener('click', function() {
-            modalTitle.textContent = '📄 CET-4 成绩单 (600分)';
-            modalImg.src = 'CET4.jpg';
-            modal.classList.add('active');
+            showImages('📄 CET-4 成绩单 (600分)', [{ src: 'grade/CET4.jpg', alt: 'CET-4 成绩单' }]);
+        });
+
+        degreeElement.addEventListener('click', function() {
+            showImages('📄 学位证', [
+                { src: 'bachelor/BC.jpg', alt: '学位证中文版' },
+                { src: 'bachelor/BE.jpg', alt: '学位证英文版' }
+            ], true);
+        });
+
+        graduationElement.addEventListener('click', function() {
+            showImages('📄 毕业证', [
+                { src: 'bachelor/GC.jpg', alt: '毕业证中文版' },
+                { src: 'bachelor/GE.jpg', alt: '毕业证英文版' }
+            ], true);
+        });
+
+        ncreElement.addEventListener('click', function() {
+            showImages('📄 计算机等级证书', [
+                { src: 'grade/NCRE2.jpg', alt: '计算机二级证书' },
+                { src: 'grade/NCRE3.jpg', alt: '计算机三级证书' },
+                { src: 'grade/NCRE4.jpg', alt: '计算机四级证书' }
+            ]);
+        });
+
+        document.querySelectorAll('.award-table .award-name a, .exp-header h4 a').forEach(function(link) {
+            const row = link.closest('.award-table tr');
+            const clickTarget = row || link;
+            if (row) row.classList.add('linked-award');
+            clickTarget.addEventListener('click', function(event) {
+                event.preventDefault();
+                showImages('📄 ' + link.textContent, [{ src: link.getAttribute('href'), alt: link.textContent }]);
+            });
         });
 
         closeBtn.addEventListener('click', function() {
